@@ -1,28 +1,10 @@
 <script lang="ts">
-	import Card from '../components/Card.svelte';
-	import Welcome from '../components/Welcome.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+    console.log("services index")
 </script>
 
 <section>
-	<!-- {#if data.posts.length}
-		{#each data.posts as post}
-			<Card {post} />
-		{/each}
-	{:else}
-		<Welcome />
-	{/if} -->
-Image hero
-<a href="/">Wetland Design</a>
-<a href="/">Environment</a>
-<a href="/">Traffic Studies</a>
-</section>
-<section>
-	Tim Miller Associates, Inc. provides land planning and environmental services to developers, corporations, municipalities and community planning associations. These include services in the areas of municipal planning, zoning and community development, development feasibility studies and environmental impact statements.</section>
-<section>
-	<div>
+	<h1>Services</h1>
+    <div>
         <div>
             <p>image</p>
             <h2>Environmental Planning</h2>
