@@ -1,26 +1,30 @@
 <script lang="ts">
-    console.log("we stan")
+	import { PortableText } from '@portabletext/svelte';
+	import { formatDate } from '$lib/utils';
+	import { urlFor } from '$lib/utils/image';
+	export let data;
+    console.log(data)
 </script>
 
-<section>
-    <div>
-        <h1>Service</h1>
-        <p>Site design services are typically the lead component of a development proposal. These services set the stage for the development project by analyzing zoning, site features and setting. These parameters are necessary for laying out conceptual residential, commercial and other land uses before hard lining development proposals. When providing site design services the lead design professional frequently leads the approvals process through the local and SEQR review. Landscape plans supplement this effort as a component of the site engineering plans.
-    
-            Landscape and Site Design Services include:
-            
-            Zoning analysis
-            Analysis of site features and setting
-            Residential subdivisions and site designs
-            Commercial site designs
-            Park and open space design
-            Landscape plans
-            Construction cost estimates
-            Presentation drawings
-            </p>    
-    </div>
-    <div>
-        <p>image</p>
-        <p>bio card component</p>
-    </div>
+<section class="post">
+    <h1>{data.title}</h1>
+	<!-- {#if data.mainImage}
+		<img
+			class="post__cover"
+			src={urlFor(data.mainImage).url()}
+			alt="Cover image for {data.title}"
+		/>
+	{:else}
+		<div class="post__cover--none" />
+	{/if}
+	<div class="post__container">
+		<h1 class="post__title">{data.title}</h1>
+		<p class="post__excerpt">{data.excerpt}</p>
+		<p class="post__date">
+			{formatDate(data._createdAt)}
+		</p>
+		<div class="post__content">
+			<PortableText value={data.body} />
+		</div>
+	</div> -->
 </section>

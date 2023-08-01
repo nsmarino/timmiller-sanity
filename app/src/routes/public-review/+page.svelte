@@ -1,120 +1,19 @@
 <script lang="ts">
-    console.log("we stan")
+	export let data;
+    console.log(data.projects)
 </script>
 
-<h1>public review</h1>
-<p>Site design services are typically the lead component of a development proposal. These services set the stage for the development project by analyzing zoning, site features and setting.</p>
+<section>
 
-<div>
-    
-</div>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-</section>
-<section>
-<div>image</div>
-<h2>Peekskill City School District</h2>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
-<a href="/">Link to document</a>
+	<h1>Public Review</h1>
+    <div>
+	{#if data.projects.length}
+		{#each data.projects as project}
+			<h2>{project.title}</h2>
+			{#each project.public_documents as doc}
+				<div><a href="{doc.url}">{doc.label}</a></div>
+			{/each}
+		{/each}
+	{/if}
+    </div>
 </section>

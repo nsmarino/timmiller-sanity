@@ -22,6 +22,40 @@ export async function getPost(slug: string): Promise<Post> {
 	});
 }
 
+export async function getSettings(slug: string) {
+	return await client.fetch(groq`*[_type == "settings"][0]`);
+}
+
+export async function getServices() {
+	return await client.fetch(
+		groq`*[_type == "service" && defined(slug.current)] | order(_createdAt desc)`
+	);
+}
+
+export async function getService(slug: string) {
+	return await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]`, {
+		slug
+	});
+}
+
+export async function getProjects() {
+	return await client.fetch(
+		groq`*[_type == "project"] | order(_createdAt desc) {
+			...,
+			public_documents[]{
+				label,
+				"url": file.asset->url
+			}
+		}`
+	);
+}
+
+export async function getStaff() {
+	return await client.fetch(
+		groq`*[_type == "staff"] | order(_createdAt desc)`
+	);
+}
+
 export interface Post {
 	_type: 'post';
 	_createdAt: string;
