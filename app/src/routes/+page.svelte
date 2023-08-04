@@ -1,12 +1,16 @@
 <script lang="ts">
-	import Card from '../components/Card.svelte';
-	import Welcome from '../components/Welcome.svelte';
-	import type { PageData } from './$types';
+    	import { urlFor } from '$lib/utils/image';
+        import { PortableText } from '@portabletext/svelte';
+        import ImageCards from '../components/ImageCards.svelte';
+	// import Card from '../components/Card.svelte';
+	// import Welcome from '../components/Welcome.svelte';
 
-	export let data: PageData;
+	export let data;
+    console.log(data.settings)
+    console.log(data.services)
 </script>
 
-<section>
+<section class="hero">
 	<!-- {#if data.posts.length}
 		{#each data.posts as post}
 			<Card {post} />
@@ -14,54 +18,73 @@
 	{:else}
 		<Welcome />
 	{/if} -->
-Image hero
-<a href="/">Wetland Design</a>
-<a href="/">Environment</a>
-<a href="/">Traffic Studies</a>
+<img
+    class=""
+    src={urlFor(data.settings.mainImage).url()}
+    alt="Cover image for {data.settings.title}"
+/>
+<div class="ctas">
+    {#each data.settings.names as cta}
+        <a href="{cta.url}">{cta.label}</a>
+    {/each}
+</div>
 </section>
-<section>
-	Tim Miller Associates, Inc. provides land planning and environmental services to developers, corporations, municipalities and community planning associations. These include services in the areas of municipal planning, zoning and community development, development feasibility studies and environmental impact statements.</section>
-<section>
-	<div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-        <div>
-            <p>image</p>
-            <h2>Environmental Planning</h2>
-        </div>
-    </div>
+<section class="richtext">
+    <PortableText value={data.settings.homepage_desc} />
 </section>
+
+<ImageCards cards={data.services} />
+
+<style>
+
+section.hero {
+    position: relative;
+    height: 50vw;
+}
+.hero img {
+	width: 100%;
+	height: 100%;
+    object-fit: cover;
+}
+
+.hero .ctas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 60px;
+    gap: 20px;
+}
+
+.hero .ctas a {
+    display: block;
+    background-color: var(--dark-brown);
+    flex-grow: 1;
+    max-width: 200px;
+    border: 1px solid var(--off-white);
+    color: var(--off-white);
+    font-style: italic;
+    text-decoration: none;
+    padding: 20px;
+    text-align: center;
+    transition: background-color ease-in-out 0.2s;
+
+}
+.hero .ctas a:hover {
+    background-color: var(--mid-brown);
+    transition: background-color ease-in-out 0.2s;
+}
+
+section.richtext {
+    margin: 60px auto;
+    padding: 0px 40px;
+    text-align: center;
+    color: var(--dark-brown);
+    font-style: italic;
+    font-size: 2rem;
+    max-width: 800px;
+}
+
+</style>

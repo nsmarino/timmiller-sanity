@@ -22,7 +22,7 @@ export async function getPost(slug: string): Promise<Post> {
 	});
 }
 
-export async function getSettings(slug: string) {
+export async function getSettings() {
 	return await client.fetch(groq`*[_type == "settings"][0]`);
 }
 
@@ -33,7 +33,10 @@ export async function getServices() {
 }
 
 export async function getService(slug: string) {
-	return await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]`, {
+	return await client.fetch(groq`*[_type == "service" && slug.current == $slug][0]{
+		...,
+		contact->
+	}`, {
 		slug
 	});
 }

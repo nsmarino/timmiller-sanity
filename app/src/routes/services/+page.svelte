@@ -1,25 +1,19 @@
 <script lang="ts">
 	import { urlFor } from '$lib/utils/image';
+	import ImageCards from '../../components/ImageCards.svelte';
 
 	export let data;
     console.log(data.services)
 </script>
 
-<section>
-
 	<h1>Services</h1>
-    <div>
-	{#if data.services.length}
-		{#each data.services as service}
-			<a href="services/{service.slug.current}">
-				<img
-					class="post__cover"
-					src={urlFor(service.image).url()}
-					alt="Cover image for {service.title}"
-				/>
-				<h2>{service.title}</h2>
-			</a>
-		{/each}
-	{/if}
-    </div>
-</section>
+	<ImageCards cards={data.services} />
+
+<style>
+	h1 {
+		padding: 180px 60px 20px;
+		font-style: italic;
+		font-size: 3rem;
+		color: var(--dark-brown);
+	}
+</style>
