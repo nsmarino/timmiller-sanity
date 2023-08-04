@@ -30,10 +30,10 @@
 
 <style>
 	section {
-		background-color: white;
+		background-color: var(--off-white);
 		display: flex;
 		gap: 30px;
-		padding-top: 180px;
+		padding-top: 120px;
 
 	}
 	.service-img {
@@ -69,6 +69,18 @@
 		position: absolute;
 		top: 33%;
 	}
+	@media (max-width: 800px) {
+		section {
+			flex-direction: column;
 
+		}
+		.info {
+			padding: 20px;
+		}
+		.service-img {
+		border-radius: 0;
+	}
+
+	}
 	
 </style>

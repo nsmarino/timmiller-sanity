@@ -6,12 +6,16 @@
 </script>
 
 <section>
-
+<div class="header">
 	<h1>Contact</h1>
-	<p class="contact">Tel: (845) 265-4400</p>
-	<p class="contact">Fax: (845) 265-4400</p>
-	<p class="contact">contact@timmillerassociates.com</p>
-	<p class="contact">10 North St, Cold Spring NY, 10516</p>
+
+	<div>
+		<p class="contact">Tel: (845) 265-4400</p>
+		<p class="contact">Fax: (845) 265-4400</p>
+		<p class="contact">contact@timmillerassociates.com</p>
+		<p class="contact">10 North St, Cold Spring NY, 10516</p>
+	</div>
+</div>
 	
 	
 	
@@ -28,14 +32,12 @@
 
 <style>
 	h1 {
-		padding: 180px 60px 40px;
 		font-style: italic;
 		font-size: 3rem;
 		color: var(--dark-brown);
 	}
 	.contact {
 		font-style: italic;
-		padding: 5px 60px;
 		font-style: italic;
 		color: var(--dark-brown);
 
@@ -47,5 +49,22 @@
 		flex-wrap: wrap;
 		padding: 60px;
 		gap: 40px 0px;
+	}
+
+	.header {
+		padding: 180px 60px 20px;
+
+		display: flex;
+		justify-content: space-between;
+	}
+	@media (max-width: 800px) {
+		.header {
+			padding: 120px 20px 20px;
+			flex-direction: column;
+			gap: 40px;
+		}
+		.staffers {
+			padding: 20px;
+		}
 	}
 </style>

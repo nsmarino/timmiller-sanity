@@ -16,4 +16,9 @@
 		font-size: 3rem;
 		color: var(--dark-brown);
 	}
+	@media (max-width: 800px) {
+		h1 {
+			padding: 120px 20px 20px;
+		}
+	}
 </style>

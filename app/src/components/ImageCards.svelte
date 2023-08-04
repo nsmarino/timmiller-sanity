@@ -23,16 +23,15 @@
     background-color: var(--light-brown);
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     padding: 20px 60px;
 }
 
 section.services-list a {
     background-color: var(--light-brown);
-    flex-grow: 1;
-    flex-basis: 0px;
+    flex-grow: 0;
+    flex-basis: calc(25% - 40px);
     display: block;
-    padding: 10px;
+    padding: 20px;
     text-decoration: none;
 }
 section.services-list a:hover h3 {
@@ -48,5 +47,18 @@ section.services-list h3 {
     text-decoration: none;
     text-align: center;
     font-weight: normal;
+    font-size: 1rem;
+}
+@media (max-width: 800px) {
+    section.services-list a {
+    flex-basis: 100%;
+    padding: 20px;
+ }
+ section.services-list {
+    background-color: var(--light-brown);
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
 }
 </style>

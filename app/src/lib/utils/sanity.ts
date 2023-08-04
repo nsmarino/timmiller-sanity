@@ -45,12 +45,32 @@ export async function getProjects() {
 	return await client.fetch(
 		groq`*[_type == "project"] | order(_createdAt desc) {
 			...,
+			services_rendered[]->{
+				slug,
+				title
+			},
 			public_documents[]{
 				label,
 				"url": file.asset->url
 			}
 		}`
 	);
+}
+
+export async function getProject(slug: string) {
+	return await client.fetch(groq`*[_type == "project" && slug.current == $slug][0]{
+		...,
+		services_rendered[]->{
+			slug,
+			title
+		},
+		public_documents[]{
+			label,
+			"url": file.asset->url
+		}
+	}`, {
+		slug
+	});
 }
 
 export async function getStaff() {

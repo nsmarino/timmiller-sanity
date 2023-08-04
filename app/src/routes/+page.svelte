@@ -39,7 +39,7 @@
 
 section.hero {
     position: relative;
-    height: 50vw;
+    height: 40vw;
 }
 .hero img {
 	width: 100%;
@@ -85,6 +85,15 @@ section.richtext {
     font-style: italic;
     font-size: 2rem;
     max-width: 800px;
+}
+@media (max-width: 800px) {
+    section.hero {
+    position: relative;
+    height: 120vw;
+}
+.hero .ctas {
+    padding: 10px;
+}
 }
 
 </style>
