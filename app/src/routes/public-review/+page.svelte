@@ -11,16 +11,20 @@
 	{#if data.projects.length}
 		{#each data.projects as project}
 		<div class="project">
-			<img
-				class=""
-				src={urlFor(project.image).url()}
-				alt=""
-			/>
+			{#if project.image}
+				<img
+					class=""
+					src={urlFor(project.image).url()}
+					alt=""
+				/>
+			{/if}
 			<div>
 				<h2><a href="projects/{project.slug.current}">{project.title}</a></h2>
-				{#each project.services_rendered as serviceRef}
-				<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
-				{/each}
+				{#if project.services_rendered}
+					{#each project.services_rendered as serviceRef}
+					<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+					{/each}
+				{/if}
 
 				<!--  
 				{#each project.public_documents as doc}

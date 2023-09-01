@@ -1,26 +1,25 @@
 <script lang="ts">
-	import ContactForm from "../../components/ContactForm.svelte";
 	import StaffCard from "../../components/StaffCard.svelte";
+    import { PortableText } from '@portabletext/svelte';
 
 	export let data;
-    console.log("DATA HERE", data)
 </script>
 
 <section>
 	<div class="header">
-		<h1>Contact</h1>
+		<h1>About Us</h1>
 
 		<div>
 			<p class="contact">Tel: (845) 265-4400</p>
-			<p class="contact">Fax: (845) 265-4400</p>
 			<p class="contact">contact@timmillerassociates.com</p>
 			<p class="contact">10 North St, Cold Spring NY, 10516</p>
 		</div>
 	</div>
-
-	<ContactForm />
+	<div class="richtext">
+		<PortableText value={data.settings.about_desc} />
+	</div>
 	
-    <div class="staffers">
+	<div class="staffers">
 	{#if data.staff.length}
 		{#each data.staff as staffMember}
 			<StaffCard staffer={staffMember} />
@@ -40,6 +39,12 @@
 		font-style: italic;
 		color: var(--dark-brown);
 
+	}
+	.richtext {
+		padding: 20px 60px;
+		font-family: var(--font-family-sans);
+		color: var(--dark-brown);
+		max-width: 600px;
 	}
 	.staffers {
 		margin-top: 40px;
@@ -65,6 +70,9 @@
 		.staffers {
 			padding: 20px;
 			flex-direction: column;
+		}
+		.richtext {
+			padding: 20px;
 		}
 	}
 </style>

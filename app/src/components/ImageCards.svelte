@@ -40,6 +40,8 @@ section.services-list a:hover h3 {
 section.services-list a img{
     width: 100%;
     border-radius: 6px;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
 }
 section.services-list h3 {
     font-family: var(--font-family-sans);

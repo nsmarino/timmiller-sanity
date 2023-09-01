@@ -25,7 +25,8 @@
 		position: relative;
 		text-align: right;
 		margin: 20px;
-		flex-grow: 1;
+		flex-grow: 0;
+		flex-basis: calc((100% / 3) - 40px);
 	}
 	.card-top {
 		display: flex;

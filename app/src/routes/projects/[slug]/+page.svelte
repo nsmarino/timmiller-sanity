@@ -9,13 +9,15 @@
 
 <section>
 	<h1>{data.title}</h1>
-	{#each data.services_rendered as serviceRef}
-	<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
-	{/each}
+	{#if data.services_rendered}
+		{#each data.services_rendered as serviceRef}
+		<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+		{/each}
+	{/if}
 
 	<div class="doc-list">
 		<h2>Public Documents</h2>
-		{#each data	.public_documents as doc}
+		{#each data.public_documents as doc}
 			{#if doc.url} 
 				<a class="doc-link" href="{doc.url}" target="_blank">{doc.label}</a>
 			{:else}

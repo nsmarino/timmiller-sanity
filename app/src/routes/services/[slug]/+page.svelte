@@ -20,7 +20,7 @@
 			src={urlFor(data.image).url()}
 			alt="Cover image for {data.title}"
 		/>
-		<StaffCard staffer={data.contact} />
+		<!-- <StaffCard staffer={data.contact} /> -->
 		<svg viewBox="0 0 741 1478" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M741 1478C544.475 1478 355.998 1400.14 217.034 1261.55C78.0695 1122.96 4.13883e-05 934.995 0 739C-4.13883e-05 543.005 78.0693 355.038 217.034 216.448C355.998 77.8589 544.474 9.11205e-05 741 0L741 739L741 1478Z" fill="#F6F9FB"/>
 		</svg>
@@ -67,7 +67,9 @@
 	}
 	svg {
 		position: absolute;
-		top: 33%;
+		width: 100%;
+		right: 0;
+		top: 25%;
 	}
 	@media (max-width: 800px) {
 		section {

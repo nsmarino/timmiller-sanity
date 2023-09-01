@@ -1,9 +1,7 @@
 <script lang="ts">
-    	import { urlFor } from '$lib/utils/image';
-        import { PortableText } from '@portabletext/svelte';
-        import ImageCards from '../components/ImageCards.svelte';
-	// import Card from '../components/Card.svelte';
-	// import Welcome from '../components/Welcome.svelte';
+    import { urlFor } from '$lib/utils/image';
+    import { PortableText } from '@portabletext/svelte';
+    import ImageCards from '../components/ImageCards.svelte';
 
 	export let data;
     console.log(data.settings)
@@ -11,13 +9,7 @@
 </script>
 
 <section class="hero">
-	<!-- {#if data.posts.length}
-		{#each data.posts as post}
-			<Card {post} />
-		{/each}
-	{:else}
-		<Welcome />
-	{/if} -->
+
 <img
     class=""
     src={urlFor(data.settings.mainImage).url()}
@@ -82,9 +74,8 @@ section.richtext {
     padding: 0px 40px;
     text-align: center;
     color: var(--dark-brown);
-    font-style: italic;
-    font-size: 2rem;
-    max-width: 800px;
+    font-size: 1.4rem;
+    max-width: 600px;
 }
 @media (max-width: 800px) {
     section.hero {
