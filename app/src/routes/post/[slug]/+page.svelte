@@ -24,7 +24,7 @@
 			{formatDate(data._createdAt)}
 		</p>
 		<div class="post__content">
-			<PortableText value={data.body} />
+			<PortableText value={data.body} components={{}} />
 		</div>
 	</div>
 </section>

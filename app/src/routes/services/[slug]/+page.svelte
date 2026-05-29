@@ -11,7 +11,7 @@
 	<div class="info">
 		<h1>{data.title}</h1>
 		<div class="info-body">
-			<PortableText value={data.service_desc}/>
+			<PortableText value={data.service_desc} components={{}} />
 		</div>
 	</div>
 	<div class="right-col">

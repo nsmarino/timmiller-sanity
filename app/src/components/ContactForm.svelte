@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
     let status = "";
-    const handleSubmit = async data => {
+    const handleSubmit = async (data: SubmitEvent & { currentTarget: HTMLFormElement }) => {
       status = 'Submitting...'
       const formData = new FormData(data.currentTarget)
       const object = Object.fromEntries(formData);

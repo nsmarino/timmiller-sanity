@@ -1,6 +1,6 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemas'
 
 export const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
@@ -30,7 +30,7 @@ export const dataset = process.env.SANITY_STUDIO_DATASET!
         dataset,
 
         plugins: [
-          deskTool({
+          structureTool({
             structure: (S) =>
               S.list()
                 .title("Content")

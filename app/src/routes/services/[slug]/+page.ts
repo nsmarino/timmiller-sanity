@@ -9,5 +9,5 @@ export const load = (async ({ params }) => {
 	const post = await getService(params.slug);
 	if (post) return post;
 
-	throw error(404, 'Not found');
+	return error(404, 'Not found');
 }) satisfies PageLoad;

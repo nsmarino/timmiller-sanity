@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div class="richtext">
-		<PortableText value={data.settings.about_desc} />
+		<PortableText value={data.settings.about_desc} components={{}} />
 	</div>
 	
 	<div class="staffers">

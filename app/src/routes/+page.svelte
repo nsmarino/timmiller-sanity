@@ -22,7 +22,7 @@
 </div>
 </section>
 <section class="richtext">
-    <PortableText value={data.settings.homepage_desc} />
+    <PortableText value={data.settings.homepage_desc} components={{}} />
 </section>
 
 <ImageCards cards={data.services} />
