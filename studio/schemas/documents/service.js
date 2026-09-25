@@ -22,6 +22,16 @@ export default {
             ],
         },
         {
+            name: 'slug',
+            type: 'slug',
+            title: 'Slug',
+            description: 'The page URL: /services/<slug>. Click Generate to create it from the title.',
+            options: {
+              source: 'title',
+            },
+            validation: Rule => Rule.required(),
+        },
+        {
             name: 'service_desc',
             title: 'Service Description',
             type: 'blockContent',

@@ -22,6 +22,16 @@ export default {
             ],
         },
         {
+            name: 'slug',
+            type: 'slug',
+            title: 'Slug',
+            description: 'The page URL: /projects/<slug>. Click Generate to create it from the title.',
+            options: {
+              source: 'title',
+            },
+            validation: Rule => Rule.required(),
+        },
+        {
             name: 'project_desc',
             title: 'Description',
             type: 'blockContent',
