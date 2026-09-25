@@ -1,16 +1,18 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
-	import { urlFor } from '$lib/utils/image';
+	import { imageUrl } from '$lib/utils/image';
 	import type { Post } from '$lib/utils/sanity';
 
 	export let post: Post;
+
+	$: cover = imageUrl(post.mainImage, (b) => b.width(500).height(300));
 </script>
 
 <div class="card">
-	{#if post.mainImage}
+	{#if cover}
 		<img
 			class="card__cover"
-			src={urlFor(post.mainImage).width(500).height(300).url()}
+			src={cover}
 			alt="Cover image for {post.title}"
 		/>
 	{:else}

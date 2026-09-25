@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { urlFor } from '$lib/utils/image';
-    import { PortableText } from '@portabletext/svelte';
+	import RichText from '../components/RichText.svelte';
+    import { imageUrl } from '$lib/utils/image';
     import ImageCards from '../components/ImageCards.svelte';
 
 	export let data;
@@ -10,11 +10,12 @@
 
 <section class="hero">
 
+{#if imageUrl(data.settings?.mainImage)}
 <img
-    class=""
-    src={urlFor(data.settings.mainImage).url()}
+    src={imageUrl(data.settings.mainImage)}
     alt="Cover image for {data.settings.title}"
 />
+{/if}
 <div class="ctas">
     {#each data.settings.names as cta}
         <a href="{cta.url}">{cta.label}</a>
@@ -22,7 +23,7 @@
 </div>
 </section>
 <section class="richtext">
-    <PortableText value={data.settings.homepage_desc} components={{}} />
+    <RichText value={data.settings.homepage_desc} />
 </section>
 
 <ImageCards cards={data.services} />

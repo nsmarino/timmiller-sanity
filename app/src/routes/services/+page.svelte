@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { urlFor } from '$lib/utils/image';
 	import ImageCards from '../../components/ImageCards.svelte';
 
 	export let data;

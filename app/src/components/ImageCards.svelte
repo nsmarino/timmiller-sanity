@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { urlFor } from '$lib/utils/image';
+	import { imageUrl } from '$lib/utils/image';
 
 	export let cards:any
     console.log("Cards", cards)
@@ -8,11 +8,14 @@
 <section class="services-list">
     {#each cards as card}
         <a href="services/{card.slug.current}">
-            <img
-                class=""
-                src={urlFor(card.image).url()}
-                alt="Cover image for {card.title}"
-            />
+            {#if imageUrl(card.image)}
+                <img
+                    src={imageUrl(card.image)}
+                    alt="Cover image for {card.title}"
+                />
+            {:else}
+                <div class="image-placeholder" aria-hidden="true" />
+            {/if}
             <h3>{card.title}</h3>
         </a>
     {/each}
@@ -23,19 +26,27 @@
     background-color: var(--light-brown);
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     padding: 20px 60px;
 }
 
 section.services-list a {
     background-color: var(--light-brown);
     flex-grow: 0;
-    flex-basis: calc(25% - 40px);
+    flex-basis: calc(100% / 3 - 40px);
     display: block;
     padding: 20px;
     text-decoration: none;
 }
 section.services-list a:hover h3 {
     text-decoration: underline;
+}
+section.services-list a .image-placeholder {
+    width: 100%;
+    border-radius: 6px;
+    aspect-ratio: 5 / 4;
+    background-color: var(--dark-brown);
+    opacity: 0.15;
 }
 section.services-list a img{
     width: 100%;

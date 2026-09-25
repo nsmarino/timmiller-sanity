@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { PortableText } from '@portabletext/svelte';
+	import RichText from '../../../components/RichText.svelte';
 	import { formatDate } from '$lib/utils';
-	import { urlFor } from '$lib/utils/image';
+	import { imageUrl } from '$lib/utils/image';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
 <section class="post">
-	{#if data.mainImage}
+	{#if imageUrl(data.mainImage)}
 		<img
 			class="post__cover"
-			src={urlFor(data.mainImage).url()}
+			src={imageUrl(data.mainImage)}
 			alt="Cover image for {data.title}"
 		/>
 	{:else}
@@ -24,7 +24,7 @@
 			{formatDate(data._createdAt)}
 		</p>
 		<div class="post__content">
-			<PortableText value={data.body} components={{}} />
+			<RichText value={data.body} />
 		</div>
 	</div>
 </section>

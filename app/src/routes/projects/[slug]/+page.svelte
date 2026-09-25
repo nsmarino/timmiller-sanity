@@ -2,7 +2,6 @@
 	import { PortableText } from '@portabletext/svelte';
 	import StaffCard from '../../../components/StaffCard.svelte';
 	import { formatDate } from '$lib/utils';
-	import { urlFor } from '$lib/utils/image';
 	export let data;
     console.log(data)
 </script>

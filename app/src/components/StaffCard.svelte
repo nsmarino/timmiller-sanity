@@ -1,7 +1,15 @@
 <script lang="ts">
-	import { urlFor } from '$lib/utils/image';
+	import { imageUrl } from '$lib/utils/image';
 
 	export let staffer:any
+
+	$: headshot = imageUrl(staffer?.headshot, (b) => b.width(200).height(200).fit('crop'));
+	$: initials = (staffer?.name ?? '')
+		.split(/[\s,]+/)
+		.filter((part: string) => /^[A-Za-z]/.test(part) && part !== part.toUpperCase())
+		.map((part: string) => part[0])
+		.slice(0, 2)
+		.join('');
 </script>
 
 <div class="card">
@@ -11,13 +19,15 @@
 			<p>{staffer.role}</p>
 		</div>
 
-		<img
-			class=""
-			src={urlFor(staffer.headshot).url()}
-			alt="Headshot of {staffer.name}"
-		/>
+		{#if headshot}
+			<img src={headshot} alt="Headshot of {staffer.name}" />
+		{:else}
+			<div class="headshot-placeholder" aria-hidden="true">{initials}</div>
+		{/if}
 	</div>
-	<a href="mailto:{staffer.email}">{staffer.email}</a>
+	{#if staffer.email?.trim()}
+		<a href="mailto:{staffer.email.trim()}">{staffer.email.trim()}</a>
+	{/if}
 </div>
 <style>
 	.card {
@@ -39,9 +49,21 @@
 		color: var(--dark-brown);
 		font-weight: normal;
 	}
-	img {
+	img,
+	.headshot-placeholder {
 		width: 100px;
+		flex-shrink: 0;
 		border-radius: 6px;
+	}
+	.headshot-placeholder {
+		aspect-ratio: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--light-brown);
+		color: var(--dark-brown);
+		font-style: italic;
+		font-size: 1.5rem;
 	}
 	p {
 		font-family: var(--font-family-sans);

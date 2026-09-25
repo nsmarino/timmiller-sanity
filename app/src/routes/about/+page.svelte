@@ -1,6 +1,6 @@
 <script lang="ts">
+	import RichText from '../../components/RichText.svelte';
 	import StaffCard from "../../components/StaffCard.svelte";
-    import { PortableText } from '@portabletext/svelte';
 
 	export let data;
 </script>
@@ -16,11 +16,11 @@
 		</div>
 	</div>
 	<div class="richtext">
-		<PortableText value={data.settings.about_desc} components={{}} />
+		<RichText value={data.settings.about_desc} />
 	</div>
 	
 	<div class="staffers">
-	{#if data.staff.length}
+	{#if data.staff?.length}
 		{#each data.staff as staffMember}
 			<StaffCard staffer={staffMember} />
 		{/each}
