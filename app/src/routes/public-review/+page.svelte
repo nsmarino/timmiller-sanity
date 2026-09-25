@@ -9,14 +9,65 @@
 		const last = words.pop() ?? '';
 		return { lead: words.length ? words.join(' ') + ' ' : '', last };
 	}
+
+	let query = '';
+
+	// Case- and accent-insensitive; every typed word must appear in the title or a service name
+	const normalize = (text: string) =>
+		text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+	let searchIndex: { project: any; text: string }[];
+	$: searchIndex = (data.projects ?? []).map((project: any) => ({
+		project,
+		text: normalize(
+			[project.title, ...(project.services_rendered ?? []).map((s: any) => s?.title)]
+				.filter(Boolean)
+				.join(' ')
+		)
+	}));
+	$: terms = normalize(query).split(/\s+/).filter(Boolean);
+	$: filtered = terms.length
+		? searchIndex.filter(({ text }) => terms.every((t) => text.includes(t))).map((e) => e.project)
+		: (data.projects ?? []);
 </script>
 
 <section>
 
 	<h1>Public Review</h1>
+
+	{#if data.projects?.length}
+		<div class="search">
+			<label class="visually-hidden" for="project-search">Search projects</label>
+			<div class="search-field">
+			<svg class="search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+				<circle cx="8.5" cy="8.5" r="6" />
+				<path d="M13 13l5 5" />
+			</svg>
+			<input
+				id="project-search"
+				type="search"
+				placeholder="Search projects"
+				autocomplete="off"
+				bind:value={query}
+			/>
+			</div>
+			<p class="result-count" aria-live="polite">
+				{#if terms.length}
+					{filtered.length} of {data.projects.length} projects
+				{/if}
+			</p>
+		</div>
+	{/if}
+
     <div class="projects">
-	{#if data.projects.length}
-		{#each data.projects as project}
+	{#if terms.length && !filtered.length}
+		<p class="no-results">
+			No projects match “{query.trim()}”.
+			<button type="button" on:click={() => (query = '')}>Clear search</button>
+		</p>
+	{/if}
+	{#if filtered.length}
+		{#each filtered as project (project._id)}
 		{@const title = splitTitle(project.title)}
 		<div class="project">
 			{#if imageUrl(project.image)}
@@ -77,6 +128,75 @@
 	.projects {
 		background: var(--light-brown);
 		padding: 60px;
+	}
+	.search {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 12px 20px;
+		padding: 0 60px 30px;
+	}
+	.search-field {
+		position: relative;
+		flex: 0 1 420px;
+	}
+	.search input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 12px 16px 12px 44px;
+		font-family: var(--font-family-sans);
+		font-size: 1rem;
+		color: var(--dark-brown);
+		background: var(--off-white);
+		border: 1px solid var(--dark-brown);
+		border-radius: 6px;
+		appearance: none;
+	}
+	.search input::placeholder {
+		color: var(--mid-brown);
+		opacity: 0.7;
+	}
+	.search input:focus-visible {
+		outline: 2px solid var(--green);
+		outline-offset: 2px;
+	}
+	.search-icon {
+		position: absolute;
+		left: 16px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 18px;
+		height: 18px;
+		color: var(--mid-brown);
+		pointer-events: none;
+	}
+	.result-count {
+		font-family: var(--font-family-sans);
+		font-size: 0.8rem;
+		color: var(--mid-brown);
+	}
+	.no-results {
+		font-family: var(--font-family-sans);
+		color: var(--dark-brown);
+	}
+	.no-results button {
+		margin-left: 8px;
+		padding: 0;
+		font: inherit;
+		color: inherit;
+		background: none;
+		border: none;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		cursor: pointer;
+	}
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
 	}
 	/* Spacing is padding, not margin, so the stretched link fills the full band between dividers.
 	   Top is 3px lighter to offset the serif's built-in space above ascenders and the underline
@@ -205,6 +325,12 @@
 		}
 		.projects {
 			padding: 20px;
+		}
+		.search {
+			padding: 0 20px 20px;
+		}
+		.search-field {
+			flex-basis: 100%;
 		}
 		.project {
 			flex-direction: column;

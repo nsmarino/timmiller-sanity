@@ -62,7 +62,8 @@ export async function getService(slug: string) {
 
 export async function getProjects() {
 	return await client.fetch(
-		groq`*[_type == "project"] | order(_createdAt desc) {
+		// lower() so all-caps titles sort alongside the rest instead of first
+		groq`*[_type == "project" && defined(slug.current)] | order(lower(title) asc) {
 			...,
 			services_rendered[]->{
 				slug,
