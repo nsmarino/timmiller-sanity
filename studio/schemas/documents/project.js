@@ -46,9 +46,8 @@ export default {
             type: 'array',
             description: 'Upload documents and files that should be available for public review.',
             of: [
-              {
-                type: 'file',
-              }
+              {type: 'publicDocument'},
+              {type: 'documentSectionLabel'},
             ]
         },
         {
