@@ -1,9 +1,8 @@
 <script lang="ts">
-	import ContactForm from "../../components/ContactForm.svelte";
+	import { telHref } from '$lib/utils';
 	import StaffCard from "../../components/StaffCard.svelte";
 
 	export let data;
-    console.log("DATA HERE", data)
 </script>
 
 <section>
@@ -11,17 +10,21 @@
 		<h1>Contact</h1>
 
 		<div>
-			<p class="contact">Tel: (845) 265-4400</p>
+			{#if data.contact.telephone}
+				<p class="contact">Tel: <a href={telHref(data.contact.telephone)}>{data.contact.telephone}</a></p>
+			{/if}
 			<p class="contact">Fax: (845) 265-4400</p>
-			<p class="contact">contact@timmillerassociates.com</p>
-			<p class="contact">10 North St, Cold Spring NY, 10516</p>
+			{#if data.contact.email}
+				<p class="contact"><a href="mailto:{data.contact.email}">{data.contact.email}</a></p>
+			{/if}
+			{#if data.contact.address}
+				<p class="contact">{data.contact.address}</p>
+			{/if}
 		</div>
 	</div>
 
-	<ContactForm />
-	
     <div class="staffers">
-	{#if data.staff.length}
+	{#if data.staff?.length}
 		{#each data.staff as staffMember}
 			<StaffCard staffer={staffMember} />
 		{/each}

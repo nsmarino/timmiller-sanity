@@ -4,11 +4,29 @@
 	import RichTextBlock from './RichTextBlock.svelte';
 
 	export let value: InputValue | null | undefined;
+
+	function isEmptyBlock(block: unknown) {
+		const b = block as { _type?: string; children?: { text?: string }[] };
+		return (
+			b?._type === 'block' &&
+			!(b.children ?? []).some((child) => (child.text ?? '').trim() !== '')
+		);
+	}
+
+	// Blank lines between paragraphs are intentional, but leading/trailing ones are
+	// stray Enter presses in the editor and just add dead space around the text.
+	$: blocks = (() => {
+		if (!value) return [];
+		const list = Array.isArray(value) ? [...value] : [value];
+		while (list.length && isEmptyBlock(list[0])) list.shift();
+		while (list.length && isEmptyBlock(list[list.length - 1])) list.pop();
+		return list;
+	})();
 </script>
 
-{#if value}
+{#if blocks.length}
 	<div class="rich-text">
-		<PortableText {value} components={{ block: { normal: RichTextBlock } }} />
+		<PortableText value={blocks} components={{ block: { normal: RichTextBlock } }} />
 	</div>
 {/if}
 

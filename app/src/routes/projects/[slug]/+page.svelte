@@ -10,10 +10,13 @@
 	<h1>{data.title}</h1>
 	{#if data.services_rendered}
 		{#each data.services_rendered as serviceRef}
-		<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+			{#if serviceRef?.slug?.current}
+				<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+			{/if}
 		{/each}
 	{/if}
 
+	{#if data.public_documents?.length}
 	<div class="doc-list">
 		<h2>Public Documents</h2>
 		{#each data.public_documents as doc}
@@ -22,8 +25,9 @@
 			{:else}
 				<h3>{doc.label}</h3>
 			{/if}
-		{/each}		
+		{/each}
 	</div>
+	{/if}
 
 </section>
 

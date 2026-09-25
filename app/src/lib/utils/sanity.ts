@@ -26,6 +26,25 @@ export async function getSettings() {
 	return await client.fetch(groq`*[_type == "settings"][0]`);
 }
 
+export interface ContactInfo {
+	email: string | null;
+	telephone: string | null;
+	address: string | null;
+}
+
+export async function getContactInfo(): Promise<ContactInfo> {
+	const settings = await client.fetch(
+		groq`*[_type == "settings"][0]{ email, telephone, address }`
+	);
+	const clean = (value: unknown) =>
+		typeof value === 'string' && value.trim() ? value.trim() : null;
+	return {
+		email: clean(settings?.email),
+		telephone: clean(settings?.telephone),
+		address: clean(settings?.address)
+	};
+}
+
 export async function getServices() {
 	return await client.fetch(
 		groq`*[_type == "service" && defined(slug.current)] | order(_createdAt desc)`

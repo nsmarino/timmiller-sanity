@@ -1,9 +1,15 @@
 <script lang="ts">
-	import RichText from '../components/RichText.svelte';
+	import IntroGallery from '../components/IntroGallery.svelte';
     import { imageUrl } from '$lib/utils/image';
     import ImageCards from '../components/ImageCards.svelte';
 
 	export let data;
+
+	// Sanity drops an array field entirely when its last item is removed, so `names` can be null.
+	// Also skip half-filled buttons missing a label or URL.
+	$: ctas = (data.settings?.names ?? []).filter(
+		(cta: { label?: string; url?: string }) => cta?.label?.trim() && cta?.url?.trim()
+	);
     console.log(data.settings)
     console.log(data.services)
 </script>
@@ -16,15 +22,15 @@
     alt="Cover image for {data.settings.title}"
 />
 {/if}
+{#if ctas.length}
 <div class="ctas">
-    {#each data.settings.names as cta}
+    {#each ctas as cta}
         <a href="{cta.url}">{cta.label}</a>
     {/each}
 </div>
+{/if}
 </section>
-<section class="richtext">
-    <RichText value={data.settings.homepage_desc} />
-</section>
+<IntroGallery description={data.settings.homepage_desc} />
 
 <ImageCards cards={data.services} />
 
@@ -70,14 +76,6 @@ section.hero {
     transition: background-color ease-in-out 0.2s;
 }
 
-section.richtext {
-    margin: 60px auto;
-    padding: 0px 40px;
-    text-align: center;
-    color: var(--dark-brown);
-    font-size: 1.4rem;
-    max-width: 600px;
-}
 @media (max-width: 800px) {
     section.hero {
     position: relative;

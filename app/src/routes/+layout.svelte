@@ -1,6 +1,14 @@
 <script>
 	import { fly } from 'svelte/transition'
 	import { cubicIn, cubicOut } from 'svelte/easing'
+	import { telHref } from '$lib/utils'
+
+	// Shared by the header menu and the footer
+	const navLinks = [
+		{ href: '/services', label: 'Services' },
+		{ href: '/public-review', label: 'Public Review' },
+		{ href: '/contact', label: 'Contact' }
+	]
 
 
 	let activeNav = false
@@ -66,10 +74,9 @@
 		<div id="nav-bg" class:activeNavBg on:click={toggleMenu}></div>
 
 		<nav class:activeNav>
-			<a href="/about">About Us</a>
-			<a href="/services">Services</a>
-			<a href="/public-review">Public Review</a>
-			<a href="/contact">Contact</a>
+			{#each navLinks as link}
+				<a href={link.href}>{link.label}</a>
+			{/each}
 		</nav>
 	</header>
 	{#key data.pathname}
@@ -81,18 +88,32 @@
 		</main>
 	{/key}
 	<footer class="footer">
-		<p><svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<nav class="footer-nav" aria-label="Footer">
+			{#each navLinks as link}
+				<a href={link.href}>{link.label}</a>
+			{/each}
+		</nav>
+
+		<div class="footer-contact">
+			{#if data.contact.telephone}
+			<p><svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M7.64222 16.4456C10.6822 22.42 15.58 27.2967 21.5544 30.3578L26.1989 25.7133C26.7689 25.1433 27.6133 24.9533 28.3522 25.2067C30.7167 25.9878 33.2711 26.41 35.8889 26.41C37.05 26.41 38 27.36 38 28.5211V35.8889C38 37.05 37.05 38 35.8889 38C16.0656 38 0 21.9344 0 2.11111C0 0.95 0.95 0 2.11111 0H9.5C10.6611 0 11.6111 0.95 11.6111 2.11111C11.6111 4.75 12.0333 7.28333 12.8144 9.64778C13.0467 10.3867 12.8778 11.21 12.2867 11.8011L7.64222 16.4456Z" fill="#E0D9CA"/>
 			</svg>
-			TEL: <span>(845) 265-4400</span></p>
-		<p><svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				TEL: <span><a href={telHref(data.contact.telephone)}>{data.contact.telephone}</a></span></p>
+			{/if}
+			{#if data.contact.email}
+			<p><svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M27 0H3C1.35 0 0.015 1.30644 0.015 2.9032L0 20.3224C0 21.9191 1.35 23.2256 3 23.2256H27C28.65 23.2256 30 21.9191 30 20.3224V2.9032C30 1.30644 28.65 0 27 0ZM27 5.8064L15 13.0644L3 5.8064V2.9032L15 10.1612L27 2.9032V5.8064Z" fill="#E0D9CA"/>
 			</svg>
-			<span><a href="mailto:contact@timmillerassociates.com">contact@timmillerassociates.com</a></span></p>
-		<p><svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<span><a href="mailto:{data.contact.email}">{data.contact.email}</a></span></p>
+			{/if}
+			{#if data.contact.address}
+			<p><svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M15 6V0H0V27H30V6H15ZM6 24H3V21H6V24ZM6 18H3V15H6V18ZM6 12H3V9H6V12ZM6 6H3V3H6V6ZM12 24H9V21H12V24ZM12 18H9V15H12V18ZM12 12H9V9H12V12ZM12 6H9V3H12V6ZM27 24H15V21H18V18H15V15H18V12H15V9H27V24ZM24 12H21V15H24V12ZM24 18H21V21H24V18Z" fill="#E0D9CA"/>
 			</svg>
-			<span>10 North St, Cold Spring NY, 10516</span></p>
+				<span>{data.contact.address}</span></p>
+			{/if}
+		</div>
 	</footer>
 </div>
 
@@ -118,21 +139,25 @@
 		header .mb-logo {
 			display: none;
 		}
-	nav {
+	header nav {
 		display: flex;
 		gap: 40px;
 	}
-	nav a {
+	header nav a {
 		color: var(--dark-brown);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		text-decoration: none;
 	}
-	nav a:hover {
+	header nav a:hover {
 		text-underline-offset: 4px;
 		text-decoration: underline;
 	}
 	footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 40px;
 		background-color: var(--dark-brown);
 		color: var(--light-brown);
 		text-align: right;
@@ -140,6 +165,24 @@
 		line-height: 2em;
 		padding: 60px;
 		font-size: 1.4rem;
+	}
+	/* Same links as the header, stacked; small caps-style to sit quietly beside the contact details */
+	.footer-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		text-align: left;
+		line-height: 1.4;
+	}
+	.footer-nav a {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+	}
+	.footer-nav a:hover {
+		text-decoration: underline;
+		text-underline-offset: 4px;
 	}
 
 	footer p span {
@@ -177,7 +220,7 @@
 			margin-left: auto;
 			display: inline;
 		}
-		nav {
+		header nav {
 			position: fixed;
 			left: 0;
 			right: 0;
@@ -217,15 +260,30 @@
 			transition: all 0.4s ease-in-out;
 		}
 
-		nav a {
+		header nav a {
 			text-align: center;
 			text-decoration: underline;
 		}
 		footer {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 20px;
 			padding: 20px 10px;
 		}
 		footer p {
 			font-size: 0.8rem;
+		}
+		/* Too narrow for two columns: run the links in a row above the contact details */
+		.footer-nav {
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 8px 20px;
+			padding-bottom: 16px;
+			border-bottom: 1px solid color-mix(in srgb, var(--light-brown) 25%, transparent);
+		}
+		.footer-nav a {
+			font-size: 0.75rem;
 		}
 	}
 </style>

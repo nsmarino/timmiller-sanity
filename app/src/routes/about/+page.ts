@@ -1,15 +1,12 @@
-import { getStaff, getSettings } from '$lib/utils/sanity';
+import { getSettings } from '$lib/utils/sanity';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load = (async () => {
-	const staff = await getStaff();
-	const settings = await getSettings()
+	const settings = await getSettings();
 
-
-	if (staff && settings) {
+	if (settings) {
 		return {
-			staff,
 			settings
 		};
 	}

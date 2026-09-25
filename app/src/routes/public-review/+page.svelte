@@ -45,7 +45,9 @@
 				</h2>
 				{#if project.services_rendered}
 					{#each project.services_rendered as serviceRef}
-					<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+						{#if serviceRef?.slug?.current}
+							<a class="service-link" href="/services/{serviceRef.slug.current}">{serviceRef.title}</a>
+						{/if}
 					{/each}
 				{/if}
 
